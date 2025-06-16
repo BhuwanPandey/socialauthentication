@@ -7,9 +7,12 @@ function Home() {
   const navigate = useNavigate();
 
   const GOOGLELOGIN_API = import.meta.env.VITE_GOOGLELOGIN;
+  const GITHUBLOGIN_API = import.meta.env.VITE_GITHUBLOGIN;
   const USERME_API = import.meta.env.VITE_USERME;
   const REFRESHTOKEN_API = import.meta.env.VITE_REFRESHTOKEN;
   const BLACKLIST_API = import.meta.env.VITE_REFRESHBLACKLIST;
+  const param = new URLSearchParams(window.location.search);
+  const code = param.get("code")
 
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem("auth_token"));
@@ -17,8 +20,11 @@ function Home() {
     const hashParams = new URLSearchParams(window.location.hash.substring(1));
     const accessToken = hashParams.get("access_token");
 
-    if (accessToken) {
-      handleGoogleLogin(accessToken);
+    if (accessToken || code) {
+      const loginData = accessToken
+      ? { url: GOOGLELOGIN_API, request: { access_token: accessToken } }
+      : { url: GITHUBLOGIN_API, request: { code:code } };
+        handleLogin(loginData);
     } else if (token) {
       fetchUserProfile(token);
     } else {
@@ -48,12 +54,12 @@ function Home() {
     }
   };
 
-  const handleGoogleLogin = async (accessToken) => {
+  const handleLogin = async (props) => {
     try {
-      const response = await fetch(GOOGLELOGIN_API, {
+      const response = await fetch(props.url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ access_token: accessToken }),
+        body: JSON.stringify(props.request),
       });
 
       const data = await response.json();

@@ -25,7 +25,7 @@ def create_profile_avatar(sender, instance, created, **kwargs):
         user = instance.user
         profile, _ = Profile.objects.get_or_create(user=user)
         try:
-            image_url = instance.extra_data.get("picture")
+            image_url = instance.extra_data.get("picture") or instance.extra_data.get("avatar_url")
             if image_url:
                 resp = requests.get(image_url, timeout=5)
                 resp.raise_for_status()

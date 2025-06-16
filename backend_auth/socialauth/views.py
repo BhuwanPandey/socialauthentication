@@ -1,6 +1,7 @@
 
 import os
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
+from allauth.socialaccount.providers.github.views import GithubOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.client import OAuth2Client
 from dj_rest_auth.registration.views import SocialLoginView
 from rest_framework.views import APIView
@@ -10,7 +11,12 @@ from rest_framework.response import Response
 
 class GoogleLogin(SocialLoginView):
     adapter_class = GoogleOAuth2Adapter
-    callback_url = os.getenv("GOOGLE_REDIRECT_URL")
+    callback_url = os.getenv("SOCIAL_REDIRECT_URL")
+    client_class = OAuth2Client
+
+class GithubLogin(SocialLoginView):
+    adapter_class = GithubOAuth2Adapter
+    callback_url = os.getenv("SOCIAL_REDIRECT_URL")
     client_class = OAuth2Client
 
 class UserMe(APIView):

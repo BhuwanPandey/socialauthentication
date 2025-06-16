@@ -69,6 +69,13 @@ button i{
   }
 }
 
+.auth_button{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100px;
+}
+
 .profile {
   display: flex;
   flex-direction: column;
