@@ -9,4 +9,4 @@
 -  <a href="https://github.com/BhuwanPandey/socialauthentication/tree/googleauth_fastapi_react" >Google Authentication with Fastapi and Reactjs</a>
 
 ## Github Authentication with Fastapi and Reactjs [with full customization of fastapi-users]
--  <a href="https://github.com/BhuwanPandey/socialauthentication/tree/githubauth_fastapi_react" >Google Authentication with Fastapi and Reactjs</a>
+-  <a href="https://github.com/BhuwanPandey/socialauthentication/tree/githubauth_fastapi_react" >Github Authentication with Fastapi and Reactjs</a>
